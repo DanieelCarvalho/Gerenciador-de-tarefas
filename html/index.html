@@ -4,41 +4,114 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
     <title>Gerenciador de tarefas</title>
   </head>
   <body>
-    <figure>
-      <img src="#" alt="#" />
-    </figure>
-    <form action="">
-      <h2>Acesse sua conta</h2>
-      <div id="errorLogin"></div>
-      <label for="emailLogin" id="labelEmailL">
-        <input type="email" id="emailLogin" placeholder="E-mail" />
-      </label>
-      <label for="senhaLogin" id="LabelSenhaL">
-        <input type="password" id="senhaLogin" placeholder="Senha" />
-      </label>
+    <main>
+      <figure>
+        <img src="/img/planejamento.png" alt="#" />
+      </figure>
+      <section>
+        <form action="">
+          <h2>Acesse sua conta</h2>
 
-      <input type="button" value="Entrar" onclick="entrar()" />
-    </form>
+          <label for="emailLogin" id="labelEmailL">
+            <input
+              type="email"
+              class="form-control form-control-lg"
+              id="emailLogin"
+              aria-describedby="emailHelp"
+              placeholder="E-mail"
+            />
+          </label>
 
-    <form action="">
-      <h1>Novo por aqui? Crie sua conta:</h1>
-      <label for="nome" id="labelNome">
-        <input type="text" placeholder="Nome" id="nome" />
-      </label>
+          <label for="senhaLogin" id="LabelSenhaL">
+            <input
+              type="password"
+              class="form-control form-control-lg"
+              id="senhaLogin"
+              placeholder="Senha"
+            />
+          </label>
+          <div class="buttons">
+            <input
+              type="button"
+              value="Entrar"
+              class="btn btn-primary form-control-lg"
+              onclick="entrar()"
+            />
+          </div>
+          <div id="janelaModal" class="modal">
+            <div div class="modal-dialog modal-lg" id="teste">
+              <div class="modal-dialog"></div>
+              <h4 class="modal-title">Senha incoreta</h4>
+              <button class="btn btn-close"></button>
+            </div>
+          </div>
+        </form>
 
-      <label id="labelEmailC" for="emailCadastro">
-        <input type="email" name="" id="emailCadastro" placeholder="E-mail" />
-      </label>
+        <form action="">
+          <h2>Novo por aqui? Crie sua conta:</h2>
 
-      <label for="senhaCadastro" id="labelSenhaC">
-        <input type="password" name="" id="senhaCadastro" placeholder="Senha" />
-      </label>
+          <label for="validationDefault01" id="labelNome">
+            <input
+              type="text"
+              class="form-control form-control-lg"
+              id="nome"
+              aria-describedby="emailHelp"
+              placeholder="Nome"
+              required
+            />
+          </label>
 
-      <input type="button" value="Criar conta" onclick="cadastrar()" />
-    </form>
+          <label id="labelEmailC" for="emailCadastro">
+            <input
+              type="email"
+              class="form-control form-control-lg"
+              id="emailCadastro"
+              aria-describedby="emailHelp"
+              placeholder="E-mail"
+              required
+            />
+          </label>
+
+          <label for="senhaCadastro" id="labelSenhaC">
+            <input
+              type="password"
+              class="form-control form-control-lg"
+              id="senhaCadastro"
+              placeholder="Senha"
+              required
+            />
+          </label>
+          <div class="buttons">
+            <input
+              type="submit"
+              value="Entrar"
+              class="btn btn-primary form-control-lg"
+              onclick="cadastrar()"
+            />
+          </div>
+          sfsf
+        </form>
+      </section>
+    </main>
     <script src="/js/script.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+      integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>

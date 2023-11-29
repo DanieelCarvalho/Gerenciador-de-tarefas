@@ -1,21 +1,17 @@
 let log = console.log;
 let tarefa = document.querySelector("#tarefa");
-let validaTarefa = false;
 
 let dataInicio = document.querySelector("#dataInicio");
-let validaDataInit = false;
 
 let dataTermino = document.querySelector("#dataTermino");
-let validaDataFim = false;
 
 let horaInit = document.querySelector("#horaInit");
-let validaHoraInit = false;
 
 let horaFim = document.querySelector("#horaFim");
-let validaHoraFim = false;
 
 let descricao = document.querySelector("#descricao");
-let validaDescricao = false;
+let paragrafoModal = document.querySelector("#paragrafoModal");
+let modalTitle = document.querySelector("#modal-title");
 
 let user = JSON.parse(localStorage.getItem("userLogado"));
 let nome = user.nome.split(" ");
@@ -48,7 +44,7 @@ tarefa.addEventListener("keyup", () => {
 
 function sair() {
   localStorage.removeItem("token");
-  //localStorage.removeItem("userLogado");
+  localStorage.removeItem("userLogado");
   window.location.href = "http://127.0.0.1:5500/html/index.html";
 }
 if (localStorage.getItem("token") == null) {
@@ -72,16 +68,15 @@ function criar() {
     listaTarefas.push({
       id: id.id,
       tarefa: tarefa.value,
-      inicio: `${dataInicio.value} às ${horaInit.value}`,
-      fim: `${dataTermino.value} às${horaFim.value}`,
-      status: "Em andamento",
+      inicio: `${dataInicio.value}T${horaInit.value}`,
+      fim: `${dataTermino.value}T${horaFim.value}`,
+      status: "",
       descricao: descricao.value,
     });
 
     localStorage.setItem("listaTarefas", JSON.stringify(listaTarefas));
-
-    //let tabela = document.textContent("#tabelaDados");
   }
+
   window.location.reload();
 }
 
@@ -104,23 +99,79 @@ function exibirTabela() {
       tarefasUsuario.forEach(function (tarefa) {
         let novaLinha = tabela.insertRow(tabela.rows.length);
 
-        novaLinha.insertCell().appendChild(document.createTextNode(tarefa.id));
+        // novaLinha.insertCell().appendChild(document.createTextNode(tarefa.id));
+        novaLinha;
+        // .insertCell()
+        // .appendChild(document.createTextNode(tarefa.tarefa));
+        let cellTarefa = novaLinha.insertCell();
+        let teste = document.createElement("td");
+        teste.textContent = tarefa.tarefa;
+
+        teste.addEventListener("click", function () {
+          new bootstrap.Modal("#modal").show();
+          paragrafoModal.textContent = tarefa.descricao;
+          modalTitle.textContent = tarefa.tarefa;
+        });
+        cellTarefa.appendChild(teste);
+        // cellTarefa.textContent = tarefa.tarefa;
+
         novaLinha
           .insertCell()
-          .appendChild(document.createTextNode(tarefa.tarefa));
+          .appendChild(
+            document.createTextNode(
+              dayjs(tarefa.inicio).format("DD/MM/YYYY HH:mm")
+            )
+          );
         novaLinha
           .insertCell()
-          .appendChild(document.createTextNode(tarefa.inicio));
-        novaLinha.insertCell().appendChild(document.createTextNode(tarefa.fim));
-        novaLinha
-          .insertCell()
-          .appendChild(document.createTextNode(tarefa.status));
+          .appendChild(
+            document.createTextNode(
+              dayjs(tarefa.fim).format("DD/MM/YYYY HH:mm")
+            )
+          );
+        novaLinha;
+
+        let statusCell = novaLinha.insertCell();
+        let statusText = document.createTextNode(obterStatus(tarefa));
+
+        statusCell.appendChild(statusText);
+        let cellAlterar = novaLinha.insertCell();
+        let buttonAlterar = document.createElement("input");
+        buttonAlterar.type = "button";
+        buttonAlterar.value = "Alterar";
+        buttonAlterar.className = "btn btn-warning form-control-lg";
+
+        buttonAlterar.addEventListener("click", function () {
+          // Lógica a ser executada ao clicar no botão "Alterar"
+          console.log(
+            "Botão 'Alterar' clicado para a tarefa com ID: " + tarefa.id
+          );
+        });
+
+        cellAlterar.appendChild(buttonAlterar);
       });
     } else {
       console.log("Não há tarefas para exibir para este usuário.");
     }
   } else {
     console.log("Usuário não está logado ou não há dados no local storage.");
+  }
+}
+
+function obterStatus(tarefa) {
+  const dataAtual = new Date();
+  const dataFim = new Date(tarefa.fim);
+  log(dataFim);
+  const dataDif = (dataFim - dataAtual) / (1000 * 60 * 60 * 24);
+
+  if (dataFim > dataAtual && dataDif < 1) {
+    return "Pendente";
+  } else if (dataFim > dataAtual) {
+    return "Em andamento";
+  } else if (tarefa.status === "Realizada") {
+    return "Realizada";
+  } else {
+    return "Em Atraso";
   }
 }
 

@@ -108,7 +108,7 @@ function entrar() {
     localStorage.setItem("userLogado", JSON.stringify(userValid));
     log(token);
   } else {
-    alert("usuário ou senha incorreto");
+    $("#modalSenhaIncorreta").modal("show");
   }
 
   log(userValid);
