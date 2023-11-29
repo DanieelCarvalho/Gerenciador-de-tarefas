@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <title>Gerenciador de tarefas</title>
+  </head>
+  <body>
+    <figure>
+      <img src="#" alt="#" />
+    </figure>
+    <form action="">
+      <h2>Acesse sua conta</h2>
+      <div id="errorLogin"></div>
+      <label for="emailLogin" id="labelEmailL">
+        <input type="email" id="emailLogin" placeholder="E-mail" />
+      </label>
+      <label for="senhaLogin" id="LabelSenhaL">
+        <input type="password" id="senhaLogin" placeholder="Senha" />
+      </label>
+
+      <input type="button" value="Entrar" onclick="entrar()" />
+    </form>
+
+    <form action="">
+      <h1>Novo por aqui? Crie sua conta:</h1>
+      <label for="nome" id="labelNome">
+        <input type="text" placeholder="Nome" id="nome" />
+      </label>
+
+      <label id="labelEmailC" for="emailCadastro">
+        <input type="email" name="" id="emailCadastro" placeholder="E-mail" />
+      </label>
+
+      <label for="senhaCadastro" id="labelSenhaC">
+        <input type="password" name="" id="senhaCadastro" placeholder="Senha" />
+      </label>
+
+      <input type="button" value="Criar conta" onclick="cadastrar()" />
+    </form>
+    <script src="/js/script.js"></script>
+  </body>
+</html>
