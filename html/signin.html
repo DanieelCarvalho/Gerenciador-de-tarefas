@@ -14,7 +14,7 @@
   </head>
   <body>
     <header>
-      <h1 id="teste"></h1>
+      <h1 id="nomeUsuario"></h1>
       <figure>
         <img src="/img/sign-out.svg" alt="" onclick="sair()" />
       </figure>
@@ -85,14 +85,48 @@
             placeholder="Descrição"
           ></textarea>
         </div>
-        <div class="button">
-          <input
-            type="button"
-            value="Criar tarefa"
-            onclick="criar()"
-            class="btn btn-primary form-control-lg"
-          />
-        </div>
+        <section class="buttons">
+          <div class="buttonCriarTarefa">
+            <input
+              type="button"
+              value="Criar tarefa"
+              onclick="criar()"
+              class="btn btn-primary form-control-lg"
+            />
+          </div>
+          <div class="buttonALterarTarefa">
+            <input
+              onclick="alterarTarefa()"
+              type="button"
+              value="Alterar Tarefa"
+              class="btn btn-primary form-control-lg"
+            />
+          </div>
+          <div class="buttonExcluirTarefa">
+            <input
+              onclick="excluir()"
+              type="button"
+              value="Excluir tarefa"
+              class="btn btn-danger form-control-lg"
+            />
+          </div>
+          <div class="buttonTarefaRealizada" id="">
+            <input
+              onclick="realizada()"
+              type="button"
+              value="Marcar como realizada"
+              class="btn btn-success form-control-lg"
+            />
+          </div>
+          <div class="buttonCancelar">
+            <input
+              onclick="cancelar()"
+              type="button"
+              value="Cancelar"
+              class="btn btn-secondary form-control-lg"
+            />
+          </div>
+        </section>
       </form>
 
       <table id="tabelaDados" class="table table-striped">
@@ -127,7 +161,6 @@
         </div>
       </div>
     </main>
-    <script src="/js/home.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
       integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
@@ -139,5 +172,6 @@
       crossorigin="anonymous"
     ></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+    <script src="/js/signin.js"></script>
   </body>
 </html>
