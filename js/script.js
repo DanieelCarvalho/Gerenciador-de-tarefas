@@ -1,15 +1,10 @@
 let log = console.log;
 let nome = document.querySelector("#nome");
-let labelNome = document.querySelector("#labelNome");
-let validNome = false;
 
+let alertaCadastro = document.querySelector("#alertaCadastro");
+let alertaLogin = document.querySelector("#alertaLogin");
 let emailCadastro = document.querySelector("#emailCadastro");
-let labelEmailC = document.querySelector("#labelEmailC");
-let validEmail = false;
-
 let senhaCadastro = document.querySelector("#senhaCadastro");
-let labelSenhaC = document.querySelector("#labelSenhaC");
-let validSenha = false;
 
 let emailLogin = document.querySelector("#emailLogin");
 let senhaLogin = document.querySelector("#senhaLogin");
@@ -28,46 +23,95 @@ let dados = {
   status: "",
 };
 
-nome.addEventListener("keyup", () => {
-  if (nome.value.length < 2) {
-    validNome = false;
+function validarEmail() {
+  if (emailCadastro.value === "") {
+    return false;
+    alertaCadastro.style.display = "block";
+    alertaCadastro.className = "alert alert-danger";
+    alertaCadastro.textContent = "Insira um e-mail";
   } else {
-    validNome = true;
+    alertaCadastro.style.display = "none";
+    return true;
   }
-});
+}
 
-emailCadastro.addEventListener("keyup", () => {
-  if (nome.value.length === "") {
-    validEmail = false;
+function validarNome() {
+  if (nome.value === "") {
+    return false;
+    alertaCadastro.style.display = "block";
+    alertaCadastro.className = "alert alert-danger";
+    alertaCadastro.textContent = "Insira um nome";
   } else {
-    validEmail = true;
+    alertaCadastro.style.display = "none";
+    return true;
   }
-});
-senhaCadastro.addEventListener("keyup", () => {
+}
+
+function validarSenha() {
   if (senhaCadastro.value.length < 7) {
-    senhaCadastro.placeholder = "insira mais de 7 caracteres";
-    validSenha = false;
+    alertaCadastro.style.display = "block";
+    alertaCadastro.className = "alert alert-danger";
+    alertaCadastro.textContent = "Insira mais de 7 caracteres na senha.";
+    return false;
   } else {
-    validSenha = true;
+    alertaCadastro.style.display = "none";
+    return true;
   }
-});
+}
 
 function cadastrar() {
+  let validEmail = validarEmail();
+  let validNome = validarNome();
+  let validSenha = validarSenha();
   if (validNome && validEmail && validSenha) {
     let listaUser = JSON.parse(localStorage.getItem("listaUser") || "[]");
+    const emailExistente = listaUser.some(
+      (user) => user.email === emailCadastro.value
+    );
 
-    listaUser.push({
-      id: listaUser.length + 1,
-      nome: nome.value,
-      email: emailCadastro.value,
-      senha: senhaCadastro.value,
-    });
+    if (!emailExistente) {
+      listaUser.push({
+        id: listaUser.length + 1,
+        nome: nome.value,
+        email: emailCadastro.value,
+        senha: senhaCadastro.value,
+      });
 
-    localStorage.setItem("listaUser", JSON.stringify(listaUser));
-    log("deu bom");
-    log(listaUser.length);
-  } else {
-    log("tudo vazio");
+      localStorage.setItem("listaUser", JSON.stringify(listaUser));
+
+      alertaCadastro.style.display = "block";
+      alertaCadastro.className = "alert alert-success";
+      alertaCadastro.textContent = "Usuário cadastrado com sucesso";
+      nome.value = "";
+      emailCadastro.value = "";
+      senhaCadastro.value = "";
+
+      setTimeout(() => {
+        alertaCadastro.style.display = "none";
+        window.location.reload();
+      }, 2000);
+    } else {
+      alertaCadastro.style.display = "block";
+      alertaCadastro.className = "alert alert-danger";
+      alertaCadastro.textContent =
+        "O email já está cadastrado. Por favor, escolha outro email.";
+    }
+    setTimeout(() => {
+      alertaCadastro.style.display = "none";
+    }, 10000);
+  } else if (!validSenha && !validNome && !validEmail) {
+    alertaCadastro.style.display = "block";
+    alertaCadastro.className = "alert alert-danger";
+    alertaCadastro.textContent = "Preencha todos os campos.";
+    setTimeout(() => {
+      alertaCadastro.style.display = "none";
+    }, 10000);
+  } else if (!validNome) {
+    validarNome();
+  } else if (!validEmail) {
+    validarEmail();
+  } else if (!validSenha) {
+    validarSenha();
   }
 }
 
@@ -90,13 +134,23 @@ function entrar() {
         email: item.email,
         senha: item.senha,
       };
-      log("deu bom");
     } else {
+      alertaLogin.style.display = "block";
+      alertaLogin.className = "alert alert-danger";
+      alertaLogin.textContent = "e-mail ou senha inválido(s)";
+      setTimeout(() => {
+        alertaLogin.style.display = "none";
+      }, 10000);
       log("deu ruim");
     }
   });
   if (emailLogin.value == "" || senhaLogin.value == "") {
-    alert("preencha todos os campos");
+    alertaLogin.style.display = "block";
+    alertaLogin.className = "alert alert-danger";
+    alertaLogin.textContent = "preencha todos os campos.";
+    setTimeout(() => {
+      alertaLogin.style.display = "none";
+    }, 10000);
   } else if (
     emailLogin.value === userValid.email &&
     senhaLogin.value === userValid.senha

@@ -5,12 +5,24 @@ html {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
 }
 
+header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 15rem;
+}
+header h1 {
+  font-size: 4rem;
+  font-weight: lighter;
+  color: #0d6efd;
+}
 main {
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-around;
   font-size: 1.6rem;
   height: 80vh;
   width: 100%;
@@ -19,10 +31,10 @@ form h2 {
   font-size: 2.6rem;
 }
 main figure {
-  width: 50%;
-  height: 100%;
+  width: 60%;
+  height: 90%;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 }
 main figure img {
@@ -46,9 +58,6 @@ main section form input {
 main section form label {
   font-size: 5rem;
 }
-main section form input::placeholder {
-  font-size: 1.4rem;
-}
 
 .buttons input {
   display: flex;
@@ -56,4 +65,26 @@ main section form input::placeholder {
   justify-content: center;
   width: 8rem;
   font-size: 1.6rem;
+}
+@media (max-width: 600px) {
+  header {
+    align-items: center;
+  }
+  header h1 {
+    font-size: 2.5rem;
+  }
+  main {
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+  main figure {
+    width: 90%;
+  }
+  main figure img {
+    width: 100%;
+  }
+  main section form {
+    width: 100%;
+    margin-top: 1.7rem;
+  }
 }

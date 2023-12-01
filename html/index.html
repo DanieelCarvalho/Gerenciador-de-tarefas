@@ -10,35 +10,63 @@
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"
     />
-    <title>Gerenciador de tarefas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="shortcut icon"
+      href="/img/check-square-offset.svg"
+      type="image/x-icon"
+    />
+    <title>Dctask</title>
   </head>
   <body>
+    <header>
+      <h1>Gerenciador de Tarefas Dctask</h1>
+    </header>
     <main>
-      <figure>
+      <figure class="figure">
         <img src="/img/planejamento.png" alt="#" />
       </figure>
+
       <section>
-        <form action="">
+        <form action="" id="formAcessar">
           <h2>Acesse sua conta</h2>
 
-          <label for="emailLogin" id="labelEmailL">
+          <div class="input-group mb-3">
             <input
               type="email"
               class="form-control form-control-lg"
               id="emailLogin"
               aria-describedby="emailHelp"
               placeholder="E-mail"
+              aria-label="Username"
+              aria-describedby="basic-addon1"
+              class="form-control"
+              required
             />
-          </label>
+          </div>
 
-          <label for="senhaLogin" id="LabelSenhaL">
+          <div class="input-group mb-3">
             <input
               type="password"
               class="form-control form-control-lg"
               id="senhaLogin"
               placeholder="Senha"
+              required
             />
-          </label>
+          </div>
+          <div
+            class="alert alert-danger"
+            id="alertaLogin"
+            role="alert"
+            style="display: none"
+          ></div>
+
           <div class="buttons">
             <input
               type="button"
@@ -47,19 +75,12 @@
               onclick="entrar()"
             />
           </div>
-          <div id="janelaModal" class="modal">
-            <div div class="modal-dialog modal-lg" id="teste">
-              <div class="modal-dialog"></div>
-              <h4 class="modal-title">Senha incoreta</h4>
-              <button class="btn btn-close"></button>
-            </div>
-          </div>
         </form>
 
-        <form action="">
+        <form action="" id="formCriar">
           <h2>Novo por aqui? Crie sua conta:</h2>
 
-          <label for="validationDefault01" id="labelNome">
+          <div class="input-group mb-3">
             <input
               type="text"
               class="form-control form-control-lg"
@@ -68,9 +89,8 @@
               placeholder="Nome"
               required
             />
-          </label>
-
-          <label id="labelEmailC" for="emailCadastro">
+          </div>
+          <div class="input-group mb-3">
             <input
               type="email"
               class="form-control form-control-lg"
@@ -79,9 +99,8 @@
               placeholder="E-mail"
               required
             />
-          </label>
-
-          <label for="senhaCadastro" id="labelSenhaC">
+          </div>
+          <div class="input-group mb-3">
             <input
               type="password"
               class="form-control form-control-lg"
@@ -89,16 +108,22 @@
               placeholder="Senha"
               required
             />
-          </label>
+          </div>
+          <div
+            id="alertaCadastro"
+            class="alert alert-success"
+            role="alert"
+            style="display: none"
+          ></div>
+
           <div class="buttons">
             <input
-              type="submit"
+              type="button"
               value="Entrar"
               class="btn btn-primary form-control-lg"
               onclick="cadastrar()"
             />
           </div>
-          sfsf
         </form>
       </section>
     </main>

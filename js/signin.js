@@ -6,12 +6,11 @@ let dataInicio = document.querySelector("#dataInicio");
 let dataTermino = document.querySelector("#dataTermino");
 
 let horaInit = document.querySelector("#horaInit");
-
 let horaFim = document.querySelector("#horaFim");
-
 let descricao = document.querySelector("#descricao");
 let paragrafoModal = document.querySelector("#paragrafoModal");
 let modalTitle = document.querySelector("#modal-title");
+let cor = document.querySelectorAll(".status");
 
 let user = JSON.parse(localStorage.getItem("userLogado"));
 let nome = user.nome.split(" ");
@@ -45,9 +44,12 @@ function sair() {
   localStorage.removeItem("userLogado");
   window.location.href = "http://127.0.0.1:5500/html/index.html";
 }
-if (localStorage.getItem("token") == null) {
-  window.location.href = "http://127.0.0.1:5500/html/index.html";
+function token() {
+  if (localStorage.getItem("token") === null) {
+    window.location.href = "http://127.0.0.1:5500/html/index.html";
+  }
 }
+token();
 
 function criar() {
   if (
@@ -87,8 +89,6 @@ function exibirTabela() {
     let tarefasUsuario = listaTarefas.filter(
       (tarefa) => tarefa.usuarioId === userLogado.id && !tarefa.estaDeletado
     );
-    log(tarefasUsuario);
-
     if (tarefasUsuario.length > 0) {
       let tabela = document
         .getElementById("tabelaDados")
@@ -97,7 +97,6 @@ function exibirTabela() {
       tabela.innerHTML = "";
 
       tarefasUsuario.forEach(function (tarefas) {
-        log(tarefas);
         let novaLinha = tabela.insertRow(tabela.rows.length);
 
         novaLinha;
@@ -127,15 +126,14 @@ function exibirTabela() {
               dayjs(tarefas.fim).format("DD/MM/YYYY HH:mm")
             )
           );
-        novaLinha
+        novaLinha;
 
-          .insertCell()
-          .appendChild(document.createTextNode(obterStatus(tarefas)));
+        let statusCell = novaLinha.insertCell();
 
-        // let statusCell = novaLinha.insertCell();
-        // let statusText = document.createTextNode(obterStatus(tarefas));
+        // statusCell.className = "status";
 
-        // statusCell.appendChild(statusText);
+        statusCell.appendChild(document.createTextNode(obterStatus(tarefas)));
+
         let cellAlterar = novaLinha.insertCell();
         let buttonAlterar = document.createElement("input");
         buttonAlterar.type = "button";
@@ -145,11 +143,6 @@ function exibirTabela() {
         buttonAlterar.addEventListener("click", function () {
           alterar(tarefas);
           testeid = tarefas.idTarefas;
-          log(testeid);
-
-          console.log(
-            "Botão 'Alterar' clicado para a tarefa com ID: " + tarefas.idTarefas
-          );
         });
 
         cellAlterar.appendChild(buttonAlterar);
@@ -162,29 +155,27 @@ function exibirTabela() {
   }
 }
 
-function obterStatus(tarefas) {
+function obterStatus(tarefas, style) {
   const dataAtual = new Date();
   const dataFim = new Date(tarefas.fim);
-  log(tarefas + "dentro");
-
+  let andamento = (document.textContent = "Em andamento");
   const dataDif = (dataFim - dataAtual) / (1000 * 60 * 60 * 24);
-
   if (tarefas.status === "Realizada") {
     return "Realizada";
   } else if (dataFim > dataAtual && dataDif < 1) {
     return "Pendente";
   } else if (dataFim > dataAtual) {
-    return "Em andamento";
+    return andamento;
   } else {
     return "Em Atraso";
   }
 }
+
 function realizada() {
   let listaTarefas = JSON.parse(localStorage.getItem("listaTarefas"));
-  log(testeid);
 
-  log("dentro");
   const tarefa = listaTarefas.find((t) => t.idTarefas === testeid);
+  tarefa.style = "red";
   tarefa.status = "Realizada";
   listaTarefas = [
     ...listaTarefas.filter((t) => t.idTarefas !== testeid),
@@ -223,8 +214,6 @@ function cancelar() {
 
 function excluir() {
   let listatarefas = JSON.parse(localStorage.getItem("listaTarefas"));
-  log(testeid);
-  log(listatarefas);
 
   listatarefas = listatarefas.map((index) => {
     if (index.idTarefas === testeid) {
@@ -241,10 +230,6 @@ function excluir() {
 
 function alterarTarefa() {
   let listaTarefas = JSON.parse(localStorage.getItem("listaTarefas"));
-  log(testeid);
-  log(dataTermino.value);
-
-  log("dentro");
   const tarefas = listaTarefas.find((t) => t.idTarefas === testeid);
   tarefas.tarefa = tarefa.value;
   tarefas.fim = `${dataTermino.value}T${horaFim.value}`;
