@@ -42,11 +42,11 @@ tarefa.addEventListener("keyup", () => {
 function sair() {
   localStorage.removeItem("token");
   localStorage.removeItem("userLogado");
-  window.location.href = "http://127.0.0.1:5500/html/index.html";
+  window.location.href = "http://127.0.0.1:5500/index.html";
 }
 function token() {
   if (localStorage.getItem("token") === null) {
-    window.location.href = "http://127.0.0.1:5500/html/index.html";
+    window.location.href = "http://127.0.0.1:5500/index.html";
   }
 }
 token();
