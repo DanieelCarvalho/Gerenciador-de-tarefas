@@ -66,6 +66,10 @@ main section form label {
   width: 8rem;
   font-size: 1.6rem;
 }
+.status {
+  color: red;
+  border: solid red;
+}
 @media (max-width: 600px) {
   header {
     align-items: center;

@@ -130,7 +130,7 @@ function exibirTabela() {
 
         let statusCell = novaLinha.insertCell();
 
-        // statusCell.className = "status";
+        statusCell.className = "status";
 
         statusCell.appendChild(document.createTextNode(obterStatus(tarefas)));
 
@@ -154,18 +154,22 @@ function exibirTabela() {
     console.log("Usuário não está logado ou não há dados no local storage.");
   }
 }
-
-function obterStatus(tarefas, style) {
+function mudarCor() {
+  let status = document.getElementsByTagName("td");
+  log(status);
+}
+mudarCor();
+function obterStatus(tarefas) {
   const dataAtual = new Date();
   const dataFim = new Date(tarefas.fim);
-  let andamento = (document.textContent = "Em andamento");
+
   const dataDif = (dataFim - dataAtual) / (1000 * 60 * 60 * 24);
   if (tarefas.status === "Realizada") {
     return "Realizada";
   } else if (dataFim > dataAtual && dataDif < 1) {
     return "Pendente";
   } else if (dataFim > dataAtual) {
-    return andamento;
+    return "andamento";
   } else {
     return "Em Atraso";
   }
