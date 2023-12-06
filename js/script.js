@@ -155,7 +155,7 @@ function entrar() {
     emailLogin.value === userValid.email &&
     senhaLogin.value === userValid.senha
   ) {
-    window.location.href = "http://127.0.0.1:5500/html/signin.html";
+    window.location.href = "http://127.0.0.1:5500/signin.html";
     let token = Math.random().toString(16).substring(2);
     localStorage.setItem("token", token);
 
